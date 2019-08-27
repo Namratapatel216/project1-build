@@ -530,7 +530,7 @@ var EventServiceService = /** @class */ (function () {
         this.getReminder = function (event_data) {
             _this.socket.emit('Reminder', event_data);
         };
-        this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_6__(this.baseUrl);
+        this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_6__('ws://http://api.npatelproject.site', { transports: ['websocket'] });
     }
     EventServiceService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },

@@ -580,7 +580,7 @@ let EventServiceService = class EventServiceService {
         this.getReminder = (event_data) => {
             this.socket.emit('Reminder', event_data);
         };
-        this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_6__(this.baseUrl);
+        this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_6__('ws://http://api.npatelproject.site', { transports: ['websocket'] });
     }
 };
 EventServiceService.ctorParameters = () => [
