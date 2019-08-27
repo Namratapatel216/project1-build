@@ -870,7 +870,7 @@ var ParticularUserEventComponent = /** @class */ (function () {
         this.userList = [];
         this.meeting_list = [];
         this.refresh = new rxjs__WEBPACK_IMPORTED_MODULE_7__["Subject"]();
-        this.activeDayIsOpen = false;
+        this.activeDayIsOpen = true;
         this.get_all_meetings_of_user = function (sender_reciver_obj_, current_year, current_month) {
             _this.events = [];
             _this._eventser.GetallEventsOfUSer(sender_reciver_obj_, current_year, current_month).subscribe(function (apiResponse) {
@@ -910,23 +910,37 @@ var ParticularUserEventComponent = /** @class */ (function () {
             _this._eventser.getCurrentDateData(_this.sender_receiver_obj).subscribe(function (apiResponse) {
                 var e_2, _a;
                 if (apiResponse['status'] == 200) {
+                    var _loop_1 = function (today_m_data) {
+                        _this.event_color = colors.red;
+                        //alert(Date.parse(meeting_dataObj.meeting_start_date));
+                        var strat_push_date = new Date(today_m_data['meeting_start_date']);
+                        var end_push_date = new Date(today_m_data['meeting_end_date']);
+                        _this.events.map(function (IEevents) {
+                            var event_dt1 = new Date(IEevents.start.getFullYear(), IEevents.start.getMonth(), IEevents.start.getDate(), IEevents.start.getHours(), IEevents.start.getMinutes(), IEevents.start.getSeconds());
+                            var event_dt2 = new Date(IEevents.end.getFullYear(), IEevents.end.getMonth(), IEevents.end.getDate(), IEevents.end.getHours(), IEevents.end.getMinutes(), IEevents.end.getSeconds());
+                            if ((strat_push_date >= event_dt1 && strat_push_date <= event_dt2) || ((end_push_date >= event_dt1 && end_push_date <= event_dt2))) {
+                                _this.event_color = colors.yellow;
+                            }
+                        });
+                        _this.todays_event = tslib__WEBPACK_IMPORTED_MODULE_0__["__spread"](_this.todays_event, [
+                            {
+                                eventId: today_m_data['eventId'],
+                                meeting_created_for: today_m_data['meeting_created_for'],
+                                meeting_created_by: today_m_data['meeting_created_by'],
+                                meeting_place: today_m_data['meeting_place'],
+                                title: today_m_data['meeting_purpose'],
+                                start: new Date(today_m_data['meeting_start_date']),
+                                end: new Date(today_m_data['meeting_end_date']),
+                                actions: _this.actions,
+                                color: _this.event_color,
+                                time_gone: false
+                            }
+                        ]);
+                    };
                     try {
                         for (var _b = tslib__WEBPACK_IMPORTED_MODULE_0__["__values"](apiResponse['data']), _c = _b.next(); !_c.done; _c = _b.next()) {
                             var today_m_data = _c.value;
-                            _this.todays_event = tslib__WEBPACK_IMPORTED_MODULE_0__["__spread"](_this.todays_event, [
-                                {
-                                    eventId: today_m_data['eventId'],
-                                    meeting_created_for: today_m_data['meeting_created_for'],
-                                    meeting_created_by: today_m_data['meeting_created_by'],
-                                    meeting_place: today_m_data['meeting_place'],
-                                    title: today_m_data['meeting_purpose'],
-                                    start: new Date(today_m_data['meeting_start_date']),
-                                    end: new Date(today_m_data['meeting_end_date']),
-                                    actions: _this.actions,
-                                    color: colors.red,
-                                    time_gone: false
-                                }
-                            ]);
+                            _loop_1(today_m_data);
                         }
                     }
                     catch (e_2_1) { e_2 = { error: e_2_1 }; }
@@ -1022,8 +1036,8 @@ var ParticularUserEventComponent = /** @class */ (function () {
             });
         };
         this.pushToEvents = function (meeting_dataObj) {
-            _this.event_color = colors.red;
             console.log("push events called");
+            _this.event_color = colors.red;
             //alert(Date.parse(meeting_dataObj.meeting_start_date));
             var strat_push_date = new Date(meeting_dataObj.meeting_start_date);
             var end_push_date = new Date(meeting_dataObj.meeting_end_date);
@@ -1150,6 +1164,23 @@ var ParticularUserEventComponent = /** @class */ (function () {
                 }
                 else if (data['action'] === "update") {
                     //alert("meeting updated");
+                    _this.event_color = colors.red;
+                    //alert(Date.parse(meeting_dataObj.meeting_start_date));
+                    var strat_push_date_1 = new Date(data['meeting_start_date']);
+                    var end_push_date_1 = new Date(data['meeting_end_date']);
+                    _this.events.map(function (IEevents) {
+                        var event_dt1 = new Date(IEevents.start.getFullYear(), IEevents.start.getMonth(), IEevents.start.getDate(), IEevents.start.getHours(), IEevents.start.getMinutes(), IEevents.start.getSeconds());
+                        var event_dt2 = new Date(IEevents.end.getFullYear(), IEevents.end.getMonth(), IEevents.end.getDate(), IEevents.end.getHours(), IEevents.end.getMinutes(), IEevents.end.getSeconds());
+                        if ((strat_push_date_1 >= event_dt1 && strat_push_date_1 <= event_dt2) || ((end_push_date_1 >= event_dt1 && end_push_date_1 <= event_dt2))) {
+                            _this.event_color = colors.yellow;
+                        }
+                    });
+                    if (_this.event_color != '') {
+                        _this.event_color = colors.yellow;
+                    }
+                    else {
+                        _this.event_color = colors.red;
+                    }
                     _this.events = _this.events.map(function (iEvent) {
                         if (iEvent.eventId === data['eventId']) {
                             var updated_meeting_obj = {
@@ -1164,7 +1195,7 @@ var ParticularUserEventComponent = /** @class */ (function () {
                                 meeting_place: updated_meeting_obj.meeting_place,
                                 start: new Date(updated_meeting_obj.meeting_start_date),
                                 end: new Date(updated_meeting_obj.meeting_end_date),
-                                color: iEvent.color,
+                                color: _this.event_color,
                                 actions: iEvent.actions
                             };
                         }
