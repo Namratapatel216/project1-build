@@ -942,17 +942,24 @@ let ParticularUserEventComponent = class ParticularUserEventComponent {
             this._eventser.getCurrentDateData(this.sender_receiver_obj).subscribe((apiResponse) => {
                 if (apiResponse['status'] == 200) {
                     for (let today_m_data of apiResponse['data']) {
-                        this.event_color = colors.red;
+                        /* this.event_color = colors.red;
+              
+                  
                         //alert(Date.parse(meeting_dataObj.meeting_start_date));
                         let strat_push_date = new Date(today_m_data['meeting_start_date']);
                         let end_push_date = new Date(today_m_data['meeting_end_date']);
+              
                         this.events.map((IEevents) => {
-                            let event_dt1 = new Date(IEevents.start.getFullYear(), IEevents.start.getMonth(), IEevents.start.getDate(), IEevents.start.getHours(), IEevents.start.getMinutes(), IEevents.start.getSeconds());
-                            let event_dt2 = new Date(IEevents.end.getFullYear(), IEevents.end.getMonth(), IEevents.end.getDate(), IEevents.end.getHours(), IEevents.end.getMinutes(), IEevents.end.getSeconds());
-                            if ((strat_push_date >= event_dt1 && strat_push_date <= event_dt2) || ((end_push_date >= event_dt1 && end_push_date <= event_dt2))) {
+              
+                            let event_dt1 = new Date(IEevents.start.getFullYear(),IEevents.start.getMonth(),IEevents.start.getDate(),IEevents.start.getHours(),IEevents.start.getMinutes(),IEevents.start.getSeconds());
+              
+                            let event_dt2 = new Date(IEevents.end.getFullYear(),IEevents.end.getMonth(),IEevents.end.getDate(),IEevents.end.getHours(),IEevents.end.getMinutes(),IEevents.end.getSeconds());
+                            if( (strat_push_date >= event_dt1 && strat_push_date <= event_dt2) || ((end_push_date >= event_dt1 && end_push_date <= event_dt2)))
+                            {
                                 this.event_color = colors.yellow;
                             }
-                        });
+              
+                        });  */
                         this.todays_event = [
                             ...this.todays_event,
                             {
@@ -964,7 +971,7 @@ let ParticularUserEventComponent = class ParticularUserEventComponent {
                                 start: new Date(today_m_data['meeting_start_date']),
                                 end: new Date(today_m_data['meeting_end_date']),
                                 actions: this.actions,
-                                color: this.event_color,
+                                color: colors.red,
                                 time_gone: false
                             }
                         ];
@@ -1055,23 +1062,33 @@ let ParticularUserEventComponent = class ParticularUserEventComponent {
         };
         this.pushToEvents = (meeting_dataObj) => {
             console.log("push events called");
-            this.event_color = colors.red;
+            /* this.event_color = colors.red;
+        
+            
             //alert(Date.parse(meeting_dataObj.meeting_start_date));
             let strat_push_date = new Date(meeting_dataObj.meeting_start_date);
             let end_push_date = new Date(meeting_dataObj.meeting_end_date);
+        
             this.events.map((IEevents) => {
-                let event_dt1 = new Date(IEevents.start.getFullYear(), IEevents.start.getMonth(), IEevents.start.getDate(), IEevents.start.getHours(), IEevents.start.getMinutes(), IEevents.start.getSeconds());
-                let event_dt2 = new Date(IEevents.end.getFullYear(), IEevents.end.getMonth(), IEevents.end.getDate(), IEevents.end.getHours(), IEevents.end.getMinutes(), IEevents.end.getSeconds());
-                if ((strat_push_date >= event_dt1 && strat_push_date <= event_dt2) || ((end_push_date >= event_dt1 && end_push_date <= event_dt2))) {
+        
+                let event_dt1 = new Date(IEevents.start.getFullYear(),IEevents.start.getMonth(),IEevents.start.getDate(),IEevents.start.getHours(),IEevents.start.getMinutes(),IEevents.start.getSeconds());
+        
+                let event_dt2 = new Date(IEevents.end.getFullYear(),IEevents.end.getMonth(),IEevents.end.getDate(),IEevents.end.getHours(),IEevents.end.getMinutes(),IEevents.end.getSeconds());
+                if( (strat_push_date >= event_dt1 && strat_push_date <= event_dt2) || ((end_push_date >= event_dt1 && end_push_date <= event_dt2)))
+                {
                     this.event_color = colors.yellow;
                 }
+        
             });
-            if (this.event_color != '') {
-                this.event_color = colors.yellow;
+        
+            if(this.event_color != '')
+            {
+              this.event_color = colors.yellow;
             }
-            else {
-                this.event_color = colors.red;
-            }
+            else
+            {
+              this.event_color = colors.red;
+            }  */
             if (meeting_dataObj.meeting_start_date != undefined || meeting_dataObj.meeting_start_date != null || meeting_dataObj.meeting_start_date != '') {
                 console.log("push events if part called" + JSON.stringify(meeting_dataObj));
                 this.events = [
@@ -1082,7 +1099,7 @@ let ParticularUserEventComponent = class ParticularUserEventComponent {
                         title: meeting_dataObj.meeting_purpose,
                         start: new Date(meeting_dataObj.meeting_start_date),
                         end: new Date(meeting_dataObj.meeting_end_date),
-                        color: this.event_color,
+                        color: colors.red,
                         actions: this.actions
                     }
                 ];
@@ -1184,23 +1201,33 @@ let ParticularUserEventComponent = class ParticularUserEventComponent {
                 }
                 else if (data['action'] === "update") {
                     //alert("meeting updated");
-                    this.event_color = colors.red;
-                    //alert(Date.parse(meeting_dataObj.meeting_start_date));
-                    let strat_push_date = new Date(data['meeting_start_date']);
-                    let end_push_date = new Date(data['meeting_end_date']);
-                    this.events.map((IEevents) => {
-                        let event_dt1 = new Date(IEevents.start.getFullYear(), IEevents.start.getMonth(), IEevents.start.getDate(), IEevents.start.getHours(), IEevents.start.getMinutes(), IEevents.start.getSeconds());
-                        let event_dt2 = new Date(IEevents.end.getFullYear(), IEevents.end.getMonth(), IEevents.end.getDate(), IEevents.end.getHours(), IEevents.end.getMinutes(), IEevents.end.getSeconds());
-                        if ((strat_push_date >= event_dt1 && strat_push_date <= event_dt2) || ((end_push_date >= event_dt1 && end_push_date <= event_dt2))) {
-                            this.event_color = colors.yellow;
-                        }
-                    });
-                    if (this.event_color != '') {
-                        this.event_color = colors.yellow;
-                    }
-                    else {
-                        this.event_color = colors.red;
-                    }
+                    /* this.event_color = colors.red;
+           
+               
+                     //alert(Date.parse(meeting_dataObj.meeting_start_date));
+                     let strat_push_date = new Date(data['meeting_start_date']);
+                     let end_push_date = new Date(data['meeting_end_date']);
+           
+                     this.events.map((IEevents) => {
+           
+                         let event_dt1 = new Date(IEevents.start.getFullYear(),IEevents.start.getMonth(),IEevents.start.getDate(),IEevents.start.getHours(),IEevents.start.getMinutes(),IEevents.start.getSeconds());
+           
+                         let event_dt2 = new Date(IEevents.end.getFullYear(),IEevents.end.getMonth(),IEevents.end.getDate(),IEevents.end.getHours(),IEevents.end.getMinutes(),IEevents.end.getSeconds());
+                         if( (strat_push_date >= event_dt1 && strat_push_date <= event_dt2) || ((end_push_date >= event_dt1 && end_push_date <= event_dt2)))
+                         {
+                             this.event_color = colors.yellow;
+                         }
+           
+                     });
+           
+                     if(this.event_color != '')
+                     {
+                       this.event_color = colors.yellow;
+                     }
+                     else
+                     {
+                       this.event_color = colors.red;
+                     }  */
                     this.events = this.events.map(iEvent => {
                         if (iEvent.eventId === data['eventId']) {
                             let updated_meeting_obj = {
@@ -1215,7 +1242,7 @@ let ParticularUserEventComponent = class ParticularUserEventComponent {
                                 meeting_place: updated_meeting_obj.meeting_place,
                                 start: new Date(updated_meeting_obj.meeting_start_date),
                                 end: new Date(updated_meeting_obj.meeting_end_date),
-                                color: this.event_color,
+                                color: colors.red,
                                 actions: iEvent.actions
                             };
                         }
