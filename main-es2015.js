@@ -484,9 +484,9 @@ let EventServiceService = class EventServiceService {
         this._userservice = _userservice;
         this.toastr = toastr;
         this.cookie = cookie;
-        this.userBaseUrl = "http://localhost:3000/api/v1/users";
-        this.eventBaseUrl = "http://localhost:3000/api/v1/meetings";
-        this.baseUrl = "http://localhost:3000";
+        this.userBaseUrl = "http://api.npatelproject.site/api/v1/users";
+        this.eventBaseUrl = "http://api.npatelproject.site/api/v1/meetings";
+        this.baseUrl = "http://api.npatelproject.site";
         this.verifyUSer = () => {
             return rxjs__WEBPACK_IMPORTED_MODULE_7__["Observable"].create((observer) => {
                 this.socket.on('VerifyUser', (data) => {
@@ -2029,7 +2029,7 @@ __webpack_require__.r(__webpack_exports__);
 let UserService = class UserService {
     constructor(_http) {
         this._http = _http;
-        this.baseUrl = "http://localhost:3000/api/v1/users";
+        this.baseUrl = "http://api.npatelproject.site/api/v1/users";
         this.setUserInfoLocalStorage = (data) => {
             localStorage.setItem('M_P_userInfo', JSON.stringify(data));
         };
