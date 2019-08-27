@@ -434,9 +434,9 @@ var EventServiceService = /** @class */ (function () {
         this._userservice = _userservice;
         this.toastr = toastr;
         this.cookie = cookie;
-        this.userBaseUrl = "http://localhost:3000/api/v1/users";
-        this.eventBaseUrl = "http://localhost:3000/api/v1/meetings";
-        this.baseUrl = "http://localhost:3000";
+        this.userBaseUrl = "http://npatelproject.site/api/v1/users";
+        this.eventBaseUrl = "http://npatelproject.site/";
+        this.baseUrl = "http://npatelproject.site";
         this.verifyUSer = function () {
             return rxjs__WEBPACK_IMPORTED_MODULE_7__["Observable"].create(function (observer) {
                 _this.socket.on('VerifyUser', function (data) {
@@ -530,7 +530,7 @@ var EventServiceService = /** @class */ (function () {
         this.getReminder = function (event_data) {
             _this.socket.emit('Reminder', event_data);
         };
-        this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_6__('ws://localhost:3000', { transports: ['websocket'] });
+        this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_6__('http://npatelproject.site', { transports: ['websocket'] });
     }
     EventServiceService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
@@ -2063,7 +2063,7 @@ var UserService = /** @class */ (function () {
     function UserService(_http) {
         var _this = this;
         this._http = _http;
-        this.baseUrl = "http://localhost:3000/api/v1/users";
+        this.baseUrl = "http://npatelproject.site/api/v1/users";
         this.setUserInfoLocalStorage = function (data) {
             localStorage.setItem('M_P_userInfo', JSON.stringify(data));
         };
